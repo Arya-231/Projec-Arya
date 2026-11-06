@@ -1,0 +1,6 @@
+{
+  "name": "Bank Sururi - Bank Digital Syariah Umroh & Ekosistem Travel",
+  "description": "Aplikasi Bank Digital Syariah Khusus Tabungan Umroh, Goal-Based Autodebet, Ekosistem Travel Berizin Kemenag PPIU, dan Pelunasan Otomatis SNAP BI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
