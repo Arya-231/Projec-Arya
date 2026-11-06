@@ -1,23 +1,13 @@
 import React, { useState } from 'react';
 import {
   Home,
-  Compass,
   Calculator,
   ShieldCheck,
   Code2,
   Copy,
   Check,
-  Download,
-  Smartphone,
-  Tablet,
-  Monitor,
-  PlusCircle,
-  ExternalLink,
-  Sparkles,
   Plane,
   HelpCircle,
-  LogOut,
-  UserCheck,
 } from 'lucide-react';
 import { mockUsers, initialUser, mockTravelPackages, initialTransactions } from './data/mockData';
 import { UserSavingsProfile, TravelPackage, TransactionItem, EVoucher } from './types';
@@ -45,9 +35,6 @@ export default function App() {
 
   // Navigation State: 'beranda' | 'katalog' | 'simulasi' | 'ekyc' | 'bantuan'
   const [currentTab, setCurrentTab] = useState<'beranda' | 'katalog' | 'simulasi' | 'ekyc' | 'bantuan'>('beranda');
-
-  // Device Frame Viewport: 'mobile' | 'tablet' | 'fluid'
-  const [deviceFrame, setDeviceFrame] = useState<'mobile' | 'tablet' | 'fluid'>('mobile');
 
   // Modals
   const [isTopUpOpen, setIsTopUpOpen] = useState<boolean>(false);
@@ -174,142 +161,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col antialiased selection:bg-emerald-600 selection:text-white">
-      {/* Top Banner & Control Bar */}
-      <header className="bg-gradient-to-r from-emerald-950 via-stone-900 to-emerald-950 border-b border-emerald-800/40 px-4 py-3 shrink-0 shadow-lg">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-          {/* Logo & Info */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#D4AF37] text-emerald-950 flex items-center justify-center font-black text-xl shadow-md border-2 border-amber-200">
-              <span className="font-arabic font-bold text-2xl">س</span>
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <h1 className="font-extrabold text-base tracking-tight text-white">BANK SURURI</h1>
-                <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-700/80 text-amber-300 border border-emerald-500/40">
-                  Flutter Applet Preview
-                </span>
-              </div>
-              <p className="text-xs text-stone-400">
-                Bank Digital Syariah Khusus Tabungan Umroh & Ekosistem Travel PPIU Kemenag
-              </p>
-            </div>
-          </div>
-
-          {/* Device Frame & Actions */}
-          <div className="flex items-center flex-wrap gap-2">
-            {/* Auth Toggle / Account Indicator */}
-            {isLoggedIn ? (
-              <button
-                onClick={() => setIsLoggedIn(false)}
-                className="px-3 py-1.5 rounded-xl bg-stone-800 hover:bg-rose-950 border border-stone-700 hover:border-rose-600 text-xs font-bold text-stone-200 hover:text-rose-200 transition-colors flex items-center space-x-1.5 shadow-xs"
-                title="Keluar akun dan coba layar Login, Register, & Lupa Password"
-              >
-                <LogOut className="w-3.5 h-3.5 text-rose-400" />
-                <span>Keluar / Ganti Akun</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  setUser(mockUsers[0]);
-                  setIsLoggedIn(true);
-                }}
-                className="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold transition-colors flex items-center space-x-1.5 shadow-xs"
-                title="Masuk cepat menggunakan akun Ahmad Fauzi"
-              >
-                <UserCheck className="w-3.5 h-3.5 text-amber-300" />
-                <span>Masuk Otomatis</span>
-              </button>
-            )}
-
-            {/* Quick Topup Demo Button */}
-            <button
-              onClick={() => handleTopUp(5000000, 'Demo Quick Top-Up')}
-              className="px-3 py-1.5 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 border border-emerald-500/40 text-xs font-bold text-emerald-200 transition-colors flex items-center space-x-1.5 shadow-xs"
-              title="Tambah Rp 5.000.000 ke saldo secara instan untuk mencoba pelunasan paket umroh"
-            >
-              <PlusCircle className="w-3.5 h-3.5 text-amber-400" />
-              <span>+ Saldo Rp 5 Jt</span>
-            </button>
-
-            {/* Device Frame Switcher */}
-            <div className="flex items-center bg-stone-900/90 rounded-xl p-1 border border-stone-800 text-stone-400">
-              <button
-                onClick={() => setDeviceFrame('mobile')}
-                className={`p-1.5 rounded-lg transition-colors ${
-                  deviceFrame === 'mobile'
-                    ? 'bg-emerald-800 text-white font-bold'
-                    : 'hover:text-stone-200'
-                }`}
-                title="Tampilan HP Android/iPhone (390px)"
-              >
-                <Smartphone className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setDeviceFrame('tablet')}
-                className={`p-1.5 rounded-lg transition-colors ${
-                  deviceFrame === 'tablet'
-                    ? 'bg-emerald-800 text-white font-bold'
-                    : 'hover:text-stone-200'
-                }`}
-                title="Tampilan Tablet (580px)"
-              >
-                <Tablet className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setDeviceFrame('fluid')}
-                className={`p-1.5 rounded-lg transition-colors ${
-                  deviceFrame === 'fluid'
-                    ? 'bg-emerald-800 text-white font-bold'
-                    : 'hover:text-stone-200'
-                }`}
-                title="Tampilan Penuh Layar"
-              >
-                <Monitor className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Quick Copy Flutter Code */}
-            <button
-              onClick={handleQuickCopy}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
-                quickCopied
-                  ? 'bg-amber-400 text-emerald-950'
-                  : 'bg-stone-800 hover:bg-stone-700 text-amber-300 border border-amber-400/30'
-              }`}
-              title="Salin kode main.dart langsung ke clipboard"
-            >
-              {quickCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{quickCopied ? 'Tersalin!' : 'Salin Flutter'}</span>
-            </button>
-
-            {/* Open Full Flutter Source Viewer */}
-            <button
-              onClick={() => setIsCodeModalOpen(true)}
-              className="px-3.5 py-1.5 rounded-xl bg-[#D4AF37] hover:bg-[#e6c148] active:scale-95 text-emerald-950 text-xs font-black transition-all flex items-center space-x-1.5 shadow-md"
-            >
-              <Code2 className="w-4 h-4" />
-              <span>Lihat Kode main.dart</span>
-            </button>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col items-center justify-center p-0 sm:p-4 md:p-6 antialiased selection:bg-emerald-600 selection:text-white relative">
 
       {/* Main Content Area */}
-      <main className="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto">
-        <div
-          className={`w-full transition-all duration-300 ${
-            deviceFrame === 'mobile'
-              ? 'max-w-[410px]'
-              : deviceFrame === 'tablet'
-              ? 'max-w-[620px]'
-              : 'max-w-4xl'
-          }`}
-        >
+      <main className="w-full flex-1 flex items-center justify-center p-0 sm:p-4 overflow-y-auto">
+        <div className="w-full max-w-[420px] h-screen sm:h-[840px] sm:max-h-[94vh] flex flex-col justify-center">
           {/* Phone Shell / Mockup Container */}
-          <div className="bg-stone-900 rounded-[38px] p-2 sm:p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] border-4 border-stone-800 relative">
+          <div className="bg-stone-900 sm:rounded-[42px] p-0 sm:p-2.5 sm:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] sm:border-4 sm:border-stone-800 flex-1 flex flex-col relative overflow-hidden">
             {/* Phone Screen Glass */}
-            <div className="bg-[#F8F9FA] rounded-[30px] overflow-hidden flex flex-col relative text-stone-900 h-[820px] max-h-[88vh]">
+            <div className="bg-[#F8F9FA] sm:rounded-[32px] overflow-hidden flex flex-col relative text-stone-900 h-full w-full">
               {/* Phone Status Bar (Mockup Android / iOS) */}
               <div className="bg-[#062c1a] text-white px-6 pt-2 pb-1.5 flex items-center justify-between text-[11px] font-semibold select-none z-30">
                 <span className="font-mono">09:41</span>
@@ -502,6 +362,25 @@ export default function App() {
           </div>
         </div>
       </main>
+
+      {/* Discreet floating developer utility on desktop outside phone frame */}
+      <div className="fixed bottom-3 right-3 z-40 hidden md:flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+        <button
+          onClick={handleQuickCopy}
+          className="px-3 py-1.5 rounded-full bg-stone-900/90 hover:bg-stone-800 border border-stone-800 text-stone-400 hover:text-amber-300 text-[11px] font-semibold backdrop-blur-md transition-all flex items-center space-x-1.5 shadow-md"
+          title="Salin source code Flutter main.dart"
+        >
+          {quickCopied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+          <span>{quickCopied ? 'Tersalin' : 'Salin Flutter'}</span>
+        </button>
+        <button
+          onClick={() => setIsCodeModalOpen(true)}
+          className="p-1.5 rounded-full bg-[#D4AF37] hover:bg-[#e6c148] text-emerald-950 font-bold transition-all shadow-md active:scale-95"
+          title="Buka Kode Flutter main.dart"
+        >
+          <Code2 className="w-3.5 h-3.5" />
+        </button>
+      </div>
 
       {/* Modals & Dialogs */}
       <TopUpModal
